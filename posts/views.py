@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Post
+from django.views.generic import ListView # -->CBV
 from django.utils import timezone
 
 # Create your views here.
@@ -25,9 +26,17 @@ def create(request):
     else:
         return render(request, 'posts/create.html')
 
+"""
 def home(request):
     posts = Post.objects.order_by('-votes_total')
     return render(request,'posts/home.html', {'posts':posts})
+"""
+class HomePage(ListView):
+    model = Post
+    template_name = 'posts/home.html'
+
+    def get_queryset(self):
+        return Post.objects.order_by('-votes_total')
 
 def upvote(request, pk):
     if request.method == 'POST':
