@@ -26,10 +26,10 @@ def create(request):
     else:
         return render(request, 'posts/create.html')
 
-"""
 def home(request):
     posts = Post.objects.order_by('-votes_total')
     return render(request,'posts/home.html', {'posts':posts})
+
 """
 class HomePage(ListView):
     model = Post
@@ -37,6 +37,7 @@ class HomePage(ListView):
 
     def get_queryset(self):
         return Post.objects.order_by('-votes_total')
+"""
 
 def upvote(request, pk):
     if request.method == 'POST':
