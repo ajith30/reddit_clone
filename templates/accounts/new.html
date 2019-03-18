@@ -1,0 +1,57 @@
+<!-- Note: we dont use this html in this project -->
+
+
+{% extends 'posts/base.html' %}
+
+{% block content %}
+<h1>Sign Up</h1>
+
+{% if error %}
+{{error}}
+<br />
+<br />
+{% endif %}
+
+<form method="POST" action="{% url 'accounts:signup' %}">
+  {% csrf_token %}
+  Username:
+  <br/>
+  <input type="text" name="Username" />
+  <br />
+  Password:
+  <br />
+  <input type="text" name="Password1" />
+  <br />
+  Confirm Password:
+  <br />
+  <input type="text" name="Password2" />
+  <br />
+  <br />
+  <input  class="btn btn-primary"type="submit" value="Signup!" />
+</form>
+<h1>Login</h1>
+
+{% if error %}
+{{error}}
+<br />
+<br />
+{% endif %}
+
+<form method="POST" action="{% url 'accounts:login' %}">
+  {% csrf_token %}
+
+  {% if request.GET.next %}
+  <input type="hidden" name="next" value={{ request.GET.next }} />
+  {% endif %}
+  Username:
+  <br/>
+  <input type="text" name="Username" />
+  <br />
+  Password:
+  <br />
+  <input type="text" name="Password" />
+  <br />
+  <br />
+  <input class="btn btn-primary" type="submit" value="Login" />
+</form>
+{% endblock %}
